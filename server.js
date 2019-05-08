@@ -56,7 +56,7 @@ app.get('/friends', (req, res) => {
 });
 
 app.post('/friends', (req, res) => {
-  const friend = { id: getNewId(), ...req.body };
+  const friend = { ...req.body, id: getNewId() }; // fixed so if the object has an id already it gets changed here
   friends = [...friends, friend];
   res.status(201).json(friends);
 });

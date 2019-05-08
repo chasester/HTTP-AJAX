@@ -67,7 +67,6 @@ class App extends React.Component{
   {
     let valid = this.validateData(obj);
     if(valid < 0 ){ console.log(valid); return valid;}
-    obj.id = this.state.friends.length+1;
     axios
     .post('http://localhost:5000/friends/', obj)
     .then(response =>
