@@ -49,6 +49,8 @@ class App extends React.Component{
 
   change(obj)
   {
+    let valid = this.validateData(obj);
+    if(valid < 0 ) return valid;
     axios
     .put(`http://localhost:5000/friends/${obj.id}/`, obj)
     .then(response =>
@@ -63,6 +65,9 @@ class App extends React.Component{
   }
   add(obj)
   {
+    let valid = this.validateData(obj);
+    if(valid < 0 ){ console.log(valid); return valid;}
+    obj.id = this.state.friends.length+1;
     axios
     .post('http://localhost:5000/friends/', obj)
     .then(response =>
@@ -73,6 +78,15 @@ class App extends React.Component{
         {
           console.log(err);
         })
+    return 0;
+  }
+  
+  validateData(obj)
+  {
+    if(/[^a-zA-Z ]/g.test(obj.name)) return -1;
+    if(parseInt(obj.age) < 1 || isNaN(parseInt(obj.age))) return -2;
+    if (/^\w+([-]?\w+)*@\w+([-]?\w+)*(\w{2,3})+$/.test(obj.email)) return -3;
+    return 0;
   }
 
   render(){
