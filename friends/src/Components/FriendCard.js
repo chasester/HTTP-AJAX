@@ -37,7 +37,7 @@ class FriendCard extends React.Component
             id: this.props.friend.id,
             name: this.state.textbox === 0 ? this.state.value : this.props.friend.name,
             age: this.state.textbox === 1 ? this.state.value : this.props.friend.age,
-            email: this.state.textbox === 2 ? this.state.value : this.props.friend.email,
+            email: this.state.textbox === 2 ? this.state.value : this.props.friend.email, 
         }
         this.props.changeCb(obj);
         this.setState({textbox: -1, value: ""});
