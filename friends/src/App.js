@@ -24,12 +24,41 @@ class App extends React.Component{
   {
     axios
     .get("http://localhost:5000/friends")
-    .then(resault=>{
-      this.setState({friends: resault.data})
+    .then(response=>{
+      this.setState({friends: response.data})
     })
     .catch( err=>{
       console.log(err);
     })
+  }
+
+  delete(id)
+  {
+    axios
+    .delete(`http://localhost:5000/friends/${id}/`)
+    .then(response=> 
+      {
+        this.setState({friends: response.data})
+      })
+    .catch(err =>
+      {
+        console.log(err);
+      })
+  }
+
+  change(obj)
+  {
+    axios
+    .put(`http://localhost:5000/friends/${obj.id}/`, obj)
+    .then(response =>
+      {
+        this.setState({friends: response.data});
+      })
+      .catch(err =>
+        {
+          console.log(err);
+        })
+
   }
 
   render(){
@@ -37,7 +66,9 @@ class App extends React.Component{
       <div className="App">
         <h1>FRIENDS LIST</h1>
         <HorizontalBar/>
-        <FriendsList />
+        <FriendsList friends={this.state.friends} deleteCb={id=> this.delete(id)} changeCb={obj => this.change(obj)}/>
+        <HorizontalBar/>
+
       </div>
     );
   }
