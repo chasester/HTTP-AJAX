@@ -3,6 +3,7 @@ import './App.css';
 import styled from 'styled-components'
 import axios from 'axios';
 import FriendsList from './Components/FriendsList';
+import FriendForum from './Components/FriendForum';
 
 const HorizontalBar = styled.div `
   border: 1px solid black;
@@ -60,6 +61,19 @@ class App extends React.Component{
         })
 
   }
+  add(obj)
+  {
+    axios
+    .post('http://localhost:5000/friends/', obj)
+    .then(response =>
+      {
+        this.setState({friends: response.data});
+      })
+      .catch(err=>
+        {
+          console.log(err);
+        })
+  }
 
   render(){
     return (
@@ -68,7 +82,7 @@ class App extends React.Component{
         <HorizontalBar/>
         <FriendsList friends={this.state.friends} deleteCb={id=> this.delete(id)} changeCb={obj => this.change(obj)}/>
         <HorizontalBar/>
-
+        <FriendForum addCb={obj => this.add(obj)}/>
       </div>
     );
   }
