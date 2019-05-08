@@ -28,16 +28,22 @@ class FriendForum extends React.Component
 
     onBlur()
     {
-        if(this.checkValues()){
-            this.props.addCb(
-                {
-                    id: -1,
-                    name: this.inputs[0].value,
-                    age: this.inputs[1].value,
-                    email: this.inputs[2].value
-                });
-            this.inputs.forEach(x=> x.value="");
-        }
+        if(!this.checkValues()) return;
+
+        let err = this.props.addCb(
+            {
+                id: -1,
+                name: this.inputs[0].value,
+                age: this.inputs[1].value,
+                email: this.inputs[2].value
+            })
+        if(err === 0)
+            return this.inputs.forEach(x=> {x.value=""; x.style.outline = "0"; x.blur()});
+        try {
+        this.inputs[Math.abs(err)-1].focus();
+            this.inputs[Math.abs(err)-1].style.outline = "1px solid #FF0000";
+            console.log(Math.abs(err)-1);
+        } catch (error){}
     }
     checkValues()
     {
