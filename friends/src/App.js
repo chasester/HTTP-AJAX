@@ -23,6 +23,11 @@ class App extends React.Component{
 
   componentDidMount()
   {
+    update();
+  }
+
+  update()
+  {
     axios
     .get("http://localhost:5000/friends")
     .then(response=>{
@@ -32,7 +37,6 @@ class App extends React.Component{
       console.log(err);
     })
   }
-
   delete(id)
   {
     axios
@@ -44,6 +48,7 @@ class App extends React.Component{
     .catch(err =>
       {
         console.log(err);
+        this.update(); //our data must be out of syc so lets re update our data to make sure we have valid objects;
       })
   }
 
@@ -60,6 +65,7 @@ class App extends React.Component{
       .catch(err =>
         {
           console.log(err);
+          this.update(); //our data must be out of syc so lets re update our data to make sure we have valid objects;
         })
 
   }
@@ -76,6 +82,7 @@ class App extends React.Component{
       .catch(err=>
         {
           console.log(err);
+          this.update(); //our data must be out of syc so lets re update our data to make sure we have valid objects;
         })
     return 0;
   }
