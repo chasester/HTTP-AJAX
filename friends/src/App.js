@@ -23,7 +23,7 @@ class App extends React.Component{
 
   componentDidMount()
   {
-    update();
+    this.update();
   }
 
   update()
